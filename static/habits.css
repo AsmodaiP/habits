@@ -1,0 +1,294 @@
+@import url("https://fonts.googleapis.com/css?family=Quicksand:400,700");
+body {
+  margin: 0px;
+  font-family: "Quicksand", sans-serif;
+  background: url("images/symphony.png");
+  background-size: 175px; }
+
+a {
+  color: #949494;
+  text-decoration: none; }
+
+.container {
+  max-width: 768px;
+  margin: 15px auto;
+  border: solid 10px #dadada;
+  border-radius: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column; }
+  @media screen and (max-width: 768px) {
+    .container {
+      border-color: transparent; } }
+
+.main {
+  position: relative;
+  border: solid 2px #fff;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  background: #fff;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1; }
+
+.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0px 15px;
+  background: white;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  margin: 0px; }
+  .header__li {
+    display: block; }
+  .header__h1 {
+    background-image: -webkit-gradient(linear, left top, right top, from(#3cbbe4), to(#8368ad));
+    background-image: linear-gradient(to right, #3cbbe4 0%, #8368ad 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-right: auto;
+    margin-left: auto; }
+  .header__h4 {
+    font-size: 36px;
+    margin: 0px; }
+  .header__a {
+    color: #949494; }
+    .header__a:hover, .header__a:focus, .header__a:active {
+      color: #8368ad; }
+
+.nav {
+  margin: 0 auto;
+  display: block; }
+
+.flex-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
+
+.habit {
+  width: 100%;
+  border: solid 1px white;
+  border-right: 0px;
+  border-left: 0px; }
+  .habit--primary {
+    background-image: -webkit-gradient(linear, left bottom, left top, from(#3cbbe4), to(#596cad));
+    background-image: linear-gradient(to top, #3cbbe4 0%, #596cad 100%); }
+  .habit--secondary {
+    background-image: -webkit-gradient(linear, left bottom, left top, from(#24c5a7), to(#2b845d));
+    background-image: linear-gradient(to top, #24c5a7 0%, #2b845d 100%); }
+  .habit--tertiary {
+    background-image: -webkit-gradient(linear, left bottom, left top, from(#9f93f1), to(#8368ad));
+    background-image: linear-gradient(to top, #9f93f1 0%, #8368ad 100%); }
+  .habit--neutral {
+    background-image: -webkit-gradient(linear, left bottom, left top, from(#ffffff), to(#dadada));
+    background-image: linear-gradient(to top, #ffffff 0%, #dadada 100%);
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px; }
+  .habit__item {
+    max-width: 768px;
+    margin: 0 auto;
+    min-height: 150px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff; }
+    @media screen and (max-width: 650px) {
+      .habit__item {
+        min-height: 125px; } }
+    .habit__item--vertical {
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column; }
+    .habit__item--small {
+      min-height: 75px; }
+  .habit__checkbox {
+    opacity: 0; }
+    .habit__checkbox:focus, .habit__checkbox:focus + label::before {
+      outline: #3b99fc auto 5px; }
+  .habit__label {
+    font-size: 56px;
+    color: white;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center; }
+    /* .habit__label:before {
+      font-family: "Font Awesome 5 Free";
+      font-weight: 400;
+      content: "\f111";
+      margin-right: 15px; } */
+    .habit__label--checked::before {
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      content: "\f058"; }
+    .habit__label--pull-left {
+      margin-left: -12px; }
+    @media screen and (max-width: 650px) {
+      .habit__label {
+        font-size: 36px;
+        padding: 15px; } }
+    .habit__label:hover {
+      cursor: pointer; }
+  .habit__h3 {
+    font-size: 56px; }
+
+.habits-form {
+  margin-bottom: 0px; }
+
+.btn {
+  min-height: 75px;
+  margin: 30px auto;
+  border: none;
+  padding: 0px;
+  background: transparent;
+  text-decoration: none; }
+  .btn__h4 {
+    border-radius: 10px;
+    background: white;
+    margin: 0px 25px;
+    text-align: center; }
+    .btn__h4:hover {
+      margin-top: 4px;
+      cursor: pointer; }
+  .btn span {
+    padding: 25px 50px;
+    font-size: 28px;
+    text-decoration: none;
+    background-image: -webkit-gradient(linear, left top, right top, from(#3cbbe4), to(#8368ad));
+    background-image: linear-gradient(to right, #3cbbe4 0%, #8368ad 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: "Quicksand", sans-serif;
+    font-weight: 900;
+    border-radius: 10px;
+    border: solid 1px;
+    border-bottom: solid 5px;
+    border-color: #dadada;
+    display: block; }
+    .btn span:hover {
+      text-decoration: none;
+      border-bottom: solid 1px #dadada; }
+  .btn--secondary {
+    margin-top: 0px; }
+    .btn--secondary span {
+      background: #949494;
+      border-color: #7b7b7b;
+      -webkit-background-clip: unset;
+      -webkit-text-fill-color: unset;
+      color: white;
+      border-radius: 10px;
+      padding: 10px 50px;
+      font-size: 24px; }
+
+.streaks h3, .streaks h4, .streaks h5 {
+  font-weight: 500;
+  color: #fff;
+  margin: 5px; }
+.streaks h4 {
+  font-size: 32px;
+  width: 100%; }
+.streaks h5 {
+  font-size: 20px; }
+.streaks .habit__item {
+  padding: 15px;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap; }
+
+.profile__label, .signup__label {
+  font-size: 32px;
+  margin: 0px 10px;
+  color: #fff; }
+  @media screen and (max-width: 650px) {
+    .profile__label, .signup__label {
+      font-size: 24px; } }
+.profile input[type="text"], .profile input[type="password"], .signup input[type="text"], .signup input[type="password"] {
+  font-family: "Quicksand", sans-serif;
+  font-size: 32px;
+  color: #949494;
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+  border: solid 1px #dadada;
+  border-radius: 10px;
+  margin-top: 5px;
+  padding: 5px; }
+  @media screen and (max-width: 650px) {
+    .profile input[type="text"], .profile input[type="password"], .signup input[type="text"], .signup input[type="password"] {
+      max-width: 250px;
+      margin-bottom: 25px;
+      font-size: 24px; } }
+.profile button[type="submit"]:hover, .signup button[type="submit"]:hover {
+  cursor: pointer; }
+
+.signup .habit:nth-child(2) {
+  padding: 30px 0px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px; }
+
+.logged-out__habit, .signup__habit {
+  width: 100%;
+  padding-top: 50px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px; }
+
+.error {
+  color: #f5b1b1;
+  font-weight: 500;
+  margin: 0px; }
+
+.not-found h4 {
+  color: white;
+  font-size: 24px;
+  font-weight: 500; }
+.not-found .habit {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px; }
+  .not-found .habit__item {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column; }
+
+.footer {
+  text-align: center;
+  padding: 10px; }
+  .footer__a {
+    font-weight: bold;
+    color: #949494; }
+    .footer__a:hover {
+      cursor: pointer;
+      color: #8368ad; }
+.mymargin{
+  margin-left: 15px;
+  margin-right: 15px;
+}
+/*# sourceMappingURL=habits.css.map */

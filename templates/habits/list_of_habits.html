@@ -1,0 +1,26 @@
+{% extends 'habits/base.html' %}
+{% load static %}
+{% for key, list_habits in habits.items  %}
+    {% for id, info in list_habits.items %}
+    <div>{{info}}</div>
+    {% endfor %}
+
+{% endfor %}
+
+    {% comment %} {{habit}} {% endcomment %}
+
+{% comment %} {{habits}} {% endcomment %}
+{{% block content %}
+
+{% for key, list_habits in habits.items  %}
+    {% for id, info in list_habits.items %}
+    <div class="habit__item habit--primary habit__label ">
+    <div class="mymargin">{{info.name}}</div>
+    <hr>
+    <div class="streaks mymargin" align="right"> Стрик: {{info.streak}}</div>
+
+    </div>
+    {% endfor %}
+    
+{% endfor %}
+{% endblock content %}}
