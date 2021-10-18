@@ -60,8 +60,9 @@ def get_streak_of_habit(habit):
             if habit.is_quantity is False:
                 habit_streak += 1
             else:
-                if check_sum_of_day(days_checks, habit.quantity):
-                    habit_streak += 1
+                if  not check_sum_of_day(days_checks, habit.quantity):
+                    return habit_streak
+                habit_streak += 1
     if repeat == 'W':
         while True:
             week_checks = get_week_checks(habit, last_weekNum, last_year)
