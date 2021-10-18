@@ -35,7 +35,7 @@ class Habit(models.Model):
         default=CHOICES[0][0],
         verbose_name='Период повторения'
     )
-    times_in_perion = models.IntegerField(
+    times_in_period = models.IntegerField(
         max_length=2,
         default=1,
         verbose_name='Количетсво повторений в период'
