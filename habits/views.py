@@ -1,6 +1,7 @@
 from django.db.models.aggregates import Sum
 from django.shortcuts import render
 from .models import Habit
+import datetime as dt
 from datetime import timedelta
 
 
@@ -21,6 +22,21 @@ def get_days_checks(habit, day):
     return habit.checks.filter(date=day)
 
 
+def get_week_checks(habit, week, year):
+    return habit.checks.filter(date__week=week, date__year = year)
+
+def get_how_many_days_in_checks_have_required_sum(checks, habit):
+    habit_streak = 0
+    sum_of_days = checks.values('date').annotate(sum=Sum('quantity'))
+    if habit.is_quantity is False:
+        habit_streak += len(sum_of_days)
+    else:
+        for sum in sum_of_days:
+            if sum['sum'] >= habit.quantity:
+                habit_streak += 1
+    return habit_streak
+
+
 def get_streak_of_habit(habit):
     checks = habit.checks.all()
     if len(checks) == 0:
@@ -29,6 +45,9 @@ def get_streak_of_habit(habit):
     habit_streak = 0
     repeat = habit.repeat
     last_date = last.date
+    last_year, last_weekNum, last_DOW = last_date.isocalendar()
+    current_year, current_weekNum, current_DOW = dt.date.today().isocalendar()
+    current_month = dt.datetime.today().month
     if repeat == 'D':
         while True:
             days_checks = get_days_checks(habit, last_date)
@@ -40,26 +59,30 @@ def get_streak_of_habit(habit):
             else:
                 if check_sum_of_day(days_checks, habit.quantity):
                     habit_streak += 1
+    if repeat == 'W':
+        week_checks = get_week_checks(habit, last_weekNum, last_year)
+        while True:
+            week_checks = get_week_checks(habit, last_weekNum, last_year)
+            if len(week_checks) == 0 and (current_weekNum !=last_weekNum and current_year != last_year):
+                return habit_streak
+            last_weekNum -= 1
+            if last_weekNum == 0:
+                last_year -=1
+                last_weekNum = dt.datetime(last_year,12,31).isocalendar()[1]
+            habit_streak += get_how_many_days_in_checks_have_required_sum(week_checks, habit)
 
     if repeat == 'M':
         year = last.date.year
         month = last.date.month
         while True:
             month_checks = get_month_checks(habit, month, year)
-            if len(month_checks) == 0:
+            if len(month_checks) == 0 and (month != current_month and year != current_year):
                 return habit_streak
             month -= 1
             if month == 0:
                 year -= 1
                 month = 12
-            sum_of_days = month_checks.values(
-                'date').annotate(sum=Sum('quantity'))
-            if habit.is_quantity is False:
-                habit_streak += len(sum_of_days)
-            else:
-                for sum in sum_of_days:
-                    if sum['sum'] >= habit.quantity:
-                        habit_streak += 1
+            habit_streak += get_how_many_days_in_checks_have_required_sum(month_checks, habit)
 
 
 def list_of_habits(request):
