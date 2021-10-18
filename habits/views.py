@@ -23,7 +23,8 @@ def get_days_checks(habit, day):
 
 
 def get_week_checks(habit, week, year):
-    return habit.checks.filter(date__week=week, date__year = year)
+    return habit.checks.filter(date__week=week, date__year=year)
+
 
 def get_count_required_sum(checks, habit):
     habit_streak = 0
@@ -38,6 +39,7 @@ def get_count_required_sum(checks, habit):
 
 def check_required_repeats(streak_of_perion, habit):
     return streak_of_perion >= habit.times_in_period
+
 
 def get_streak_of_habit(habit):
     checks = habit.checks.all()
@@ -60,22 +62,22 @@ def get_streak_of_habit(habit):
             if habit.is_quantity is False:
                 habit_streak += 1
             else:
-                if  not check_sum_of_day(days_checks, habit.quantity):
+                if not check_sum_of_day(days_checks, habit.quantity):
                     return habit_streak
                 habit_streak += 1
     if repeat == 'W':
         while True:
             week_checks = get_week_checks(habit, last_weekNum, last_year)
-            if len(week_checks) == 0 and (current_weekNum !=last_weekNum and current_year != last_year):
+            if len(week_checks) == 0 and (current_weekNum != last_weekNum and current_year != last_year):
                 return habit_streak
             last_weekNum -= 1
             if last_weekNum == 0:
-                last_year -=1
-                last_weekNum = dt.datetime(last_year,12,31).isocalendar()[1]
+                last_year -= 1
+                last_weekNum = dt.datetime(last_year, 12, 31).isocalendar()[1]
             weakly_streak = get_count_required_sum(week_checks, habit)
             if check_required_repeats(weakly_streak, habit):
                 habit_streak += get_count_required_sum(week_checks, habit)
-            else: 
+            else:
                 return habit_streak
     if repeat == 'M':
         year = last.date.year
@@ -92,8 +94,9 @@ def get_streak_of_habit(habit):
             month_streak += get_count_required_sum(month_checks, habit)
             if check_required_repeats(month_streak, habit):
                 habit_streak += get_count_required_sum(month_checks, habit)
-            else: 
+            else:
                 return habit_streak
+
 
 def list_of_habits(request):
     if request.user.is_authenticated:
