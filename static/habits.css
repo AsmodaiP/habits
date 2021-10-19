@@ -291,4 +291,26 @@ a {
   margin-left: 15px;
   margin-right: 15px;
 }
+.mymaxsize{
+  max-width: 1620px;
+  margin: 0 auto;
+  min-height: 150px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff; }
 /*# sourceMappingURL=habits.css.map */
+.category {
+  justify-content: space-between;
+}
+.row{position:relative;} /*required to make this a positioning container for abs.     
+            positioned span */
+.right{position:absolute;right:0px;}
+.left{position:absolute;left:0px;}

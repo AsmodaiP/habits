@@ -1,9 +1,11 @@
 from django.db.models.aggregates import Sum
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .models import Habit
 import datetime as dt
 from datetime import timedelta
 
+
+from .forms import HabitForm, CheckForm
 
 def check_sum_of_day(days_checks, quantity):
     sum = days_checks.aggregate(Sum('quantity'))['quantity__sum']
@@ -68,17 +70,18 @@ def get_streak_of_habit(habit):
     if repeat == 'W':
         while True:
             week_checks = get_week_checks(habit, last_weekNum, last_year)
+            # print(week_checks, habit, last_weekNum, last_year)
             if len(week_checks) == 0 and (current_weekNum != last_weekNum and current_year != last_year):
+                return habit_streak
+            weakly_streak = get_count_required_sum(week_checks, habit)
+            if check_required_repeats(weakly_streak, habit) or (current_weekNum==last_weekNum and current_year==last_year):
+                habit_streak += get_count_required_sum(week_checks, habit)
+            else:
                 return habit_streak
             last_weekNum -= 1
             if last_weekNum == 0:
                 last_year -= 1
                 last_weekNum = dt.datetime(last_year, 12, 31).isocalendar()[1]
-            weakly_streak = get_count_required_sum(week_checks, habit)
-            if check_required_repeats(weakly_streak, habit):
-                habit_streak += get_count_required_sum(week_checks, habit)
-            else:
-                return habit_streak
     if repeat == 'M':
         year = last.date.year
         month = last.date.month
@@ -103,16 +106,25 @@ def list_of_habits(request):
         habits = list(Habit.objects.filter(author=request.user))
     else:
         habits = []
+    form = CheckForm(request.POST or None)
     habit_info = {}
-    habits_for_context = {}
-    habits_items = {}
+    context = {'form': form}
+    habits_for_context = []
     for habit in habits:
         streak = get_streak_of_habit(habit)
         habit_info = {
             'name': habit.title,
-            'streak': streak
+            'streak': streak,
+            'form': CheckForm(initial={'habit':habit})
         }
-        habits_items[habit.id] = habit_info
-        habits_for_context = {'habits': habits_items}
-    return render(request, 'habits/list_of_habits.html',
-                  {'habits': habits_for_context})
+        habits_for_context.append(habit_info)
+    context = {'form': form, 'habits': habits_for_context}
+    return render(request, 'habits/list_of_habits.html', context)
+
+def checking(request):
+    form = CheckForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('list_of_habits')
+    context = {'form': form}
+    return render(request, 'habits/new_check.html', context)

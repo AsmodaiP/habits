@@ -12,15 +12,18 @@
 {% comment %} {{habits}} {% endcomment %}
 {{% block content %}
 
-{% for key, list_habits in habits.items  %}
-    {% for id, info in list_habits.items %}
-    <div class="habit__item habit--primary habit__label ">
-    <div class="mymargin">{{info.name}}</div>
-    <hr>
-    <div class="streaks mymargin" align="right"> Стрик: {{info.streak}}</div>
-
-    </div>
+{% for habit in habits  %}
+    <div class="mymaxsize row  habit--primary habit__label  ">
+    <div class="mymargin left">{{habit.name}}</div>
+<form  align="center" action="/habit-check/ method="post">
+    {% for field in habit.form %}
+        {{ field }}
     {% endfor %}
-    
+    <input type="submit" value="Submit">
+</form>
+    <div class="streaks mymargin right" > Стрик: {{habit.streak}}
+    </div>
+
+</div>
 {% endfor %}
 {% endblock content %}}
