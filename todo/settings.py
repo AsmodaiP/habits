@@ -25,7 +25,10 @@ SECRET_KEY = 'django-insecure-29j$)4g8yu%dc#6d6r$8of6ma*8ks)ik0xf!kcp#od2u1p86($
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'asmodai.pythonanywhere.com',
+    'www.asmodai.pythonanywhere.com'
+]
 
 
 # Application definition
