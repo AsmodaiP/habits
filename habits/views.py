@@ -73,7 +73,11 @@ def get_previous_month_with_year(month, year):
         year -= 1
         month = 12
     return month, year
-
+def check_today_is_accomplished(habit):
+    checks = get_days_checks(habit, dt.datetime.today())
+    if get_count_required_sum(checks, habit)>0:
+        return True
+    return False
 
 def get_streak_of_habit(habit):
     checks = habit.checks.all()
@@ -145,7 +149,8 @@ def get_habits_for_context(habits):
         habit_info = {
             'name': habit.title,
             'streak': streak,
-            'form': CheckForm(initial={'habit': habit})
+            'form': CheckForm(initial={'habit': habit}),
+            'today_is_accomplished': check_today_is_accomplished(habit)
         }
         habits_for_context.append(habit_info)
     return habits_for_context
@@ -155,7 +160,10 @@ def list_of_habits(request):
     habits = get_list_user_habist(request)
     form = CheckForm(request.POST or None)
     habits_for_context = get_habits_for_context(habits)
-    context = {'form': form, 'habits': habits_for_context}
+    context = {
+        'form': form,
+        'habits': habits_for_context
+        }
     return render(request, 'habits/list_of_habits.html', context)
 
 
@@ -163,6 +171,4 @@ def checking(request):
     form = CheckForm(request.POST or None)
     if form.is_valid():
         form.save()
-        return redirect('list_of_habits')
-    context = {'form': form}
-    return render(request, 'habits/new_check.html', context)
+    return redirect('list_of_habits')

@@ -9,7 +9,8 @@ class CheckForm(forms.ModelForm):
         fields = ('quantity', 'habit')
         verbose_name = 'Отметки'
         verbose_name_plural = 'Отметки'
-        widgets = {'habit': forms.HiddenInput()}
+        widgets = {'habit_title': forms.HiddenInput()}
+
 
 class HabitForm(forms.ModelForm):
     class Meta:

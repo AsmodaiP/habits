@@ -314,3 +314,5 @@ a {
             positioned span */
 .right{position:absolute;right:0px;}
 .left{position:absolute;left:0px;}
+.redtext{
+  color:#5cc408;}

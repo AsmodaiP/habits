@@ -15,13 +15,14 @@
 {% for habit in habits  %}
     <div class="mymaxsize row  habit--primary habit__label  ">
     <div class="mymargin left">{{habit.name}}</div>
-<form  align="center" action="/habit-check/ method="post">
+<form  align="center" action="{% url 'add_check' %}" method="post">
+    {% csrf_token %}
     {% for field in habit.form %}
         {{ field }}
     {% endfor %}
     <input type="submit" value="Submit">
 </form>
-    <div class="streaks mymargin right" > Стрик: {{habit.streak}}
+    <div class="streaks mymargin right {% if habit.today_is_accomplished  %}redtext{% endif %}" > Стрик: {{habit.streak}}
     </div>
 
 </div>
