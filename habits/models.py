@@ -1,16 +1,23 @@
 from django.contrib.auth import get_user_model
 from django.db import models
-from django.db.models.query_utils import Q
 
 User = get_user_model()
 
+CHOICES = (
+    ('D', 'daily'),
+    ('W', 'Weakly'),
+    ('M', 'Mounthly'),
+    )
+
+
+class HabitPriority(models.IntegerChoices):
+    LOW = 0, 'Low'
+    NORMAL = 1, 'Normal'
+    HIGH = 2, 'High'
+
 
 class Habit(models.Model):
-    CHOICES = (
-        ('D', 'daily'),
-        ('W', 'Weakly'),
-        ('M', 'Mounthly'),
-    )
+
     author = models.ForeignKey(
         User,
         blank=False,
@@ -41,10 +48,6 @@ class Habit(models.Model):
         verbose_name='Количетсво повторений в период'
         )
 
-    class HabitPriority(models.IntegerChoices):
-        LOW = 0, 'Low'
-        NORMAL = 1, 'Normal'
-        HIGH = 2, 'High'
 
     priority = models.IntegerField(
         default=HabitPriority.LOW,
