@@ -22,7 +22,7 @@
     {% endfor %}
     <input type="submit" value="Submit">
 </form>
-    <div class="streaks mymargin right {% if habit.today_is_accomplished  %}redtext{% endif %}" > Стрик: {{habit.streak}}
+    <div class="streaks mymargin right {% if habit.today_is_accomplished  %}redtext{% endif %}" > Streak: {{habit.streak}} (best:{{habit.best_streak}})
     </div>
 
 </div>

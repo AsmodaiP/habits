@@ -27,7 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'asmodai.pythonanywhere.com',
-    'www.asmodai.pythonanywhere.com'
+    'www.asmodai.pythonanywhere.com',
+    '127.0.0.1'
 ]
 
 

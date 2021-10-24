@@ -142,13 +142,21 @@ def get_list_user_habist(request):
         return []
 
 
+def update_and_get_best_streak(habit, streak):
+    if streak > habit.best_streak:
+        habit.best_streak = streak
+    return habit.best_streak
+
+
 def get_habits_for_context(habits):
     habits_for_context = []
     for habit in habits:
         streak = get_streak_of_habit(habit)
+        best_streak = update_and_get_best_streak(habit, streak)
         habit_info = {
             'name': habit.title,
             'streak': streak,
+            'best_streak': best_streak,
             'form': CheckForm(initial={'habit': habit}),
             'today_is_accomplished': check_today_is_accomplished(habit)
         }

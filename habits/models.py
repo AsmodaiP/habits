@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models.query_utils import Q
 
 User = get_user_model()
 
@@ -36,7 +37,6 @@ class Habit(models.Model):
         verbose_name='Период повторения'
     )
     times_in_period = models.IntegerField(
-        max_length=2,
         default=1,
         verbose_name='Количетсво повторений в период'
         )
@@ -52,6 +52,11 @@ class Habit(models.Model):
         verbose_name='Приоритет'
     )
 
+    best_streak = models.IntegerField(
+        default=0,
+        verbose_name='Лучший стрик'
+    )
+
     def __str__(self) -> str:
         return self.title
 
@@ -59,6 +64,12 @@ class Habit(models.Model):
         ordering = ('-priority',)
         verbose_name = 'Привычка'
         verbose_name_plural = 'Привычки'
+        constraints = (
+            models.UniqueConstraint(
+                fields=('title', 'author'),
+                name='unique habit for author'
+            ),
+        )
 
 
 class Check(models.Model):
