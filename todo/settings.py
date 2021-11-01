@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
-
+from django.urls import reverse
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'task.apps.TaskConfig',
     'habits.apps.HabitsConfig',
+    'users.apps.UsersConfig'
 ]
 
 MIDDLEWARE = [
@@ -152,3 +153,4 @@ STATIC_ROOT = '/home/brittanyleigh/brittanyleigh.pythonanywhere.com/static'
 STATICFILES_DIRS = [
    os.path.join(BASE_DIR, "static"),
 ]
+LOGIN_REDIRECT_URL = '/habits/list_of_habits'

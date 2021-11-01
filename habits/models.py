@@ -1,5 +1,9 @@
+import datetime
+
 from django.contrib.auth import get_user_model
 from django.db import models
+
+from .validators import date_validator
 
 User = get_user_model()
 
@@ -48,7 +52,6 @@ class Habit(models.Model):
         verbose_name='Количетсво повторений в период'
         )
 
-
     priority = models.IntegerField(
         default=HabitPriority.LOW,
         choices=HabitPriority.choices,
@@ -76,7 +79,7 @@ class Habit(models.Model):
 
 
 class Check(models.Model):
-    date = models.DateField(auto_now_add=True)
+    date = models.DateField(default=datetime.date.today,validators=(date_validator,))
     quantity = models.FloatField(default=0, verbose_name='Количество')
     habit = models.ForeignKey(
         Habit,
